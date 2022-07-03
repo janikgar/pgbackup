@@ -1,10 +1,8 @@
-FROM minio/mc:latest AS minio
+FROM postgresql:16.4-bookworm as source
 
-FROM alpine:3.17
+FROM minio/mc:latest
 
-COPY --from=minio /usr/bin/mc /usr/bin/
+COPY --from=source /usr/bin/pg_dumpall /usr/bin/pg_dumpall
+COPY entrypoint.sh /
 
-ADD --chmod=0755 entrypoint.sh /
-RUN apk update && apk add postgresql15-client
-
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
