@@ -1,4 +1,4 @@
-FROM postgresql:16.4-bookworm as source
+FROM postgres:16.4-bookworm as source
 FROM minio/mc:latest
 
 COPY --from=source /usr/bin/mc /usr/bin/mc
