@@ -35,9 +35,9 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=tag
-          type=ref,event=branch
+          type=ref,event=branch,prefix={{version}}-
           type=semver,pattern={{version}},priority=500
-          type=sha,prefix={{branch}}-,priority=100
+          type=sha
     - name: Install cosign
       uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20
       with:
