@@ -35,7 +35,7 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=tag
-          type=ref,event=branch,prefix={{version}}-
+          type=ref,event=branch,prefix={{version}}-,enabled={{! is_default_branch}}
           type=semver,pattern={{version}},priority=500
           type=sha
     - name: Install cosign
